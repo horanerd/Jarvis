@@ -34,8 +34,7 @@ def take_command():
             voice = listener.listen(source) #salva o que foi dito
             command = listener.recognize_google(voice, language='pt-BR') #fala o que foi dito
             command = command.lower() #deixa tudo em caixa alta
-            if 'jarvis' in command: #ativa o jarvis
-                command = command.replace('jarvis', '')
+
     except:
         pass
     return command
@@ -54,26 +53,44 @@ def Repet_command():
 
 def run_jarvis():
     command = take_command()
-    if 'que horas é' in command:
-        talk("Parça agora é  " + str(datetime.datetime.now().strftime('%I:%M ')))
-    elif 'está bem' in command:
-        talk("Hoje esta suave na nave")
-    elif 'ajusta os comandos' in command:
-        talk("Esta ajustado vamo com tudo")
-    elif 'testar conexão' in command:
-        talk("pra onde vamos pingar ?")
-        msg = Repet_command()
-        print(msg)
-        resposta = ping(msg)
+    if 'jarvis' in command:  # ativa o jarvis
+        #command = command.replace('jarvis', '')
+        b = command.split("jarvis")
+        command = (b[1])
 
-        if resposta == True:
-            talk("Servidor online chefe")
+        if 'que horas é' in command:
+            talk("Parça agora é  " + str(datetime.datetime.now().strftime('%I:%M ')))
+        elif 'está bem' in command:
+            talk("Hoje esta suave na nave")
+        elif 'ajusta os comandos' in command:
+            talk("Esta ajustado vamo com tudo")
+        elif 'testar conexão'  in command:
+            talk("pra onde vamos pingar ?")
+            msg = Repet_command()
+            print(msg)
+            resposta = ping(msg)
+
+            if resposta == True:
+                talk("Servidor online chefe")
+            else:
+                talk("Fudeou mano Caiu tudo")
+        elif 'quem te fez' in command:
+            talk("O homem de ferro")
+        elif 'sextou' in command:
+            talk("Dia de derrubar o servidor")
+        elif 'o tiago é' in command:
+            talk("Viadinho")
+        elif 'eu sou o homem de ferro' in command:
+            talk("não, o tony stark que é")
+        elif 'a juliana é' in command:
+            talk("minhaaaa vidaaaa")
+        elif 'quem é você' in command:
+            talk("Sou Jarvis o assistente do homem de ferro")
         else:
-            talk("Caiu tudo chefe")
-    elif 'quem te fez' in command:
-        talk("O homem de ferro")
+            print(command)
+            talk("não econtrei nada com " + str(command))
     else:
         print(command)
-        talk("não econtrei nada com " + str(command))
+        take_command()
 while True:
     run_jarvis()
